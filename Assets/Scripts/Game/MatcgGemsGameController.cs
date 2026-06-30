@@ -14,11 +14,25 @@ namespace MatchGems.Game
         [SerializeField] private int _wigth = 8;
         [SerializeField] private int _height = 8;
         private BoardModel _boardModel;
+        private GridMapper _gridMapper;
+
 
         #endregion 基本參數
 
         #region 生命週期
         void Start()
+        {
+            CreateBoard();
+            CreateMapper();
+            _boardView.Build(_boardModel, _gridMapper);
+        }
+        #endregion 生命週期
+
+        #region 私有方法
+        /// <summary>
+        /// 建立棋盤
+        /// </summary>
+        private void CreateBoard()
         {
             _boardModel = new BoardModel(_wigth, _height);
 
@@ -27,13 +41,21 @@ namespace MatchGems.Game
                 for (int x = 0; x < _wigth; x++)
                 {
                     _boardModel.SetGem(x, y, (GemType)Random.Range(0, 6));
+
                 }
             }
 
-            _boardView.Build(_boardModel);
-            
         }
-        #endregion 生命週期
 
-}
+        /// <summary>
+        /// 建立轉換器
+        /// </summary>
+        public void CreateMapper()
+        {
+            //建構Root物件座標即為原點
+            _gridMapper = new GridMapper
+                (_boardView.transform.position, _boardView.CellWorldSize);
+        }
+        # endregion 私有方法
+    }
 }

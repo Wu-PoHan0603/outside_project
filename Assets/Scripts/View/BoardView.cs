@@ -13,6 +13,7 @@ namespace MatchGem.View
         [SerializeField] private float _pixelPerUnit = 64f;
         [SerializeField] private GemTile _tilePrefab;
         private GemTile[,] _tiles;
+        private GridMapper _gridMapper;
         #endregion 基本參數
 
         #region 公開屬性
@@ -23,11 +24,11 @@ namespace MatchGem.View
         /// <summary>
         /// 一個Unit單位的對應像素值
         /// </summary>
-        private float PixePerUnit => _pixelPerUnit;
+        public float PixePerUnit => _pixelPerUnit;
         /// <summary>
         /// 單一格在世界座標的比例
         /// </summary>
-        private float CellWorldSize => _cellSize / _pixelPerUnit;
+        public float CellWorldSize => _cellSize / _pixelPerUnit;
         #endregion 公開屬性
 
         #region 公開方法
@@ -35,8 +36,9 @@ namespace MatchGem.View
         /// 依棋盤資料建立全部Tile視覺
         /// </summary>
         /// <param name="board">棋盤資料</param>
-        public void Build(BoardModel board)
+        public void Build(BoardModel board, GridMapper gridMapper)
         {
+            _gridMapper = gridMapper;
             //清理舊的視覺資料
             //ClearTiles();
             //產生與資料相同的視覺
@@ -46,11 +48,10 @@ namespace MatchGem.View
             {
                 for (int x = 0; x < board.Width; x++)
                 {
-                    _tiles[x,y] = CreateTile(x,y);
-                    _tiles[x, y].SetGem(GemType.Pink);
+                    _tiles[x,y] = CreateTile(x, y);
+                    _tiles[x, y].SetGem(board.GetGem(x, y));
                 }
             }
-
         }
         #endregion 公開方法
 
@@ -80,8 +81,10 @@ namespace MatchGem.View
             }*/
         }
         #endregion 私有方法
-        
-        
+
+        #region 私有方法
+        # endregion 私有方法
+
     }
 
 }
