@@ -10,8 +10,14 @@ namespace MatchGem.Core
     public class GridMapper : MonoBehaviour
     {
         #region 基本參數
-        private Vector3 _origin;
-        private float _cellWorldSize;
+        /// <summary>
+        /// 原點
+        /// </summary>
+        private readonly Vector3 _origin;
+        /// <summary>
+        /// 世界單位尺吋
+        /// </summary>
+        private readonly float _cellWorldSize;
         #endregion 基本參數
 
         #region 建構式

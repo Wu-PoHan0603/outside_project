@@ -1,5 +1,6 @@
 using MatchGem.Core;
 using MatchGem.View;
+using MatchGem.Input;
 using UnityEngine;
 
 namespace MatchGems.Game
@@ -11,11 +12,11 @@ namespace MatchGems.Game
     {
         #region 基本參數
         [SerializeField] private BoardView _boardView;
+        [SerializeField] private BoardInput _boardInput;
         [SerializeField] private int _wigth = 8;
         [SerializeField] private int _height = 8;
         private BoardModel _boardModel;
         private GridMapper _gridMapper;
-
 
         #endregion 基本參數
 
@@ -55,6 +56,11 @@ namespace MatchGems.Game
             //建構Root物件座標即為原點
             _gridMapper = new GridMapper
                 (_boardView.transform.position, _boardView.CellWorldSize);
+        }
+
+        public void ConfigureInput()
+        {
+            _boardInput.Configure(_gridMapper);
         }
         # endregion 私有方法
     }
