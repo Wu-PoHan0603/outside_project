@@ -1,6 +1,6 @@
 using MatchGem.Core;
 using MatchGem.View;
-using MatchGem.Input;
+using MatchGem.Inputs;
 using UnityEngine;
 
 namespace MatchGems.Game
@@ -52,8 +52,7 @@ namespace MatchGems.Game
         /// 建立轉換器
         /// </summary>
         public void CreateMapper()
-        {
-            //建構Root物件座標即為原點
+        {//建構Root物件座標即為原點
             _gridMapper = new GridMapper
                 (_boardView.transform.position, _boardView.CellWorldSize);
         }

@@ -255,7 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MatchGems.Game.MatcgGemsGameController
   _boardView: {fileID: 1803313878}
-  _boardInput: {fileID: 0}
+  _boardInput: {fileID: 2074744216}
   _wigth: 8
   _height: 8
 --- !u!114 &1803313878
