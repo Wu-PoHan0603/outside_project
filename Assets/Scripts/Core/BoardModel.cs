@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 
 namespace MatchGem.Core
@@ -80,20 +81,69 @@ namespace MatchGem.Core
         {
             return IsInside(x,y) ? _gems[x, y] : null;//有設定就要有拿
         }
+
+        /// <summary>
+        /// 交換兩格的寶石資料
+        /// </summary>
+        /// <param name="from">起始</param>
+        /// <param name="to">目標</param>
+        public void SwapGems(CellCoord from, CellCoord to)
+        {
+            Debug.Log($"{_gems[from.X, from.Y].Color > _gems[to.X, to.Y].Color}");
+            GemData tmp = _gems[from.X,from.Y];
+            _gems[to.X, to.Y] = _gems[from.X, from.Y];
+            _gems[from.X, from.Y] = tmp;
+        }
         #endregion 公開方法
 
-        #region 安全查驗功能
+            #region 安全查驗功能
+            /// <summary>
+            /// 範圍檢查
+            /// </summary>
+            /// <param name="coord"></param>
+            /// <returns></returns>
         public bool IsInside(CellCoord coord)
         {
             return coord.X>= 0 && coord.Y>=0 && coord.X<Width && coord.Y<Height;
         }
+        /// <summary>
+        /// 範圍檢查
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public bool IsInside(int x, int y)
         {
             return x>= 0 && y>=0 && x<Width && y<Height;
         }
+        /// <summary>
+        /// 座標位置是否存在寶石
+        /// </summary>
+        /// <param name="coord">座標資料組</param>
+        /// <returns></returns>
         public bool HasGem(CellCoord coord)
         {
             return IsInside(coord) && _gems[coord.X, coord.Y] != null;
+        }
+        /// <summary>
+        /// 座標位置是否存在寶石
+        /// </summary>
+        /// <param name="x">座標X</param>
+        /// <param name="y">座標Y</param>
+        /// <returns></returns>
+        public bool HasGem(int x, int y)
+        {
+            return IsInside(x, y) && _gems[x, y] != null;
+        }
+        /// <summary>
+        /// 檢查兩格是否為相鄰位置
+        /// </summary>
+        /// <param name="a">A格座標</param>
+        /// <param name="b">B格座標</param>
+        /// <returns></returns>
+        public bool IsAdjacent(CellCoord a, CellCoord b)
+        {
+            return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y) ==  1;
         }
         #endregion 安全查驗功能
     }

@@ -10,8 +10,12 @@ namespace MatchGem.Inputs
     /// </summary>
     public class BoardInput : MonoBehaviour
     {
+        #region 外部事件連接
+        public Action<CellCoord, CellCoord> SwapAction;
+        #endregion 外部事件連接
+
         #region 基本參數
-        [SerializeField]private Camera _camera;
+        [SerializeField] private Camera _camera;
         private GridMapper _gridMapper;
         private readonly PointerInputReader _PIR = new PointerInputReader();
         /// <summary>
@@ -64,6 +68,7 @@ namespace MatchGem.Inputs
         /// <param name="downPos">按下的位置</param>
         private void BeginPointer(Vector2 downPos)
         {
+            Debug.Log("點擊~");
             _isDragging = true;
             _dragStarPos = downPos;
             _dragStarCoord = _gridMapper.ToCell(_dragStarPos);
@@ -74,11 +79,14 @@ namespace MatchGem.Inputs
         /// <param name="downPos">鬆開的位置</param>
         private void EndPointer(Vector2 upPos)
         {
+            Debug.Log("鬆開~");
             _isDragging = false;
             _dragDelta = upPos - _dragStarPos;
             if(_dragDelta.magnitude >= _dragThreshold)
             {//拖曳交換
                 _targetCoord = GetTargetCoord();
+                //if (SwapAction != null) SwapAction();
+                SwapAction?.Invoke(_dragStarCoord,  _targetCoord);//執行被委託的功能
             }
             else
             {//點擊:選取 or 交換
@@ -115,7 +123,7 @@ namespace MatchGem.Inputs
             else
             {//選取交換
                 _hasSelected = false;
-
+                SwapAction?.Invoke(_selectedCoord, _targetCoord);
             }
         }
         #endregion 私有方法
