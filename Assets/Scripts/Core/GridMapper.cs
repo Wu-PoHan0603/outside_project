@@ -23,11 +23,32 @@ namespace MatchGem.Core
         public GridMapper(Vector3 origin, float cellWorldSize)
         {
             _origin = origin;
-            _cellWorldSize = Math.Max(0.1f, cellWorldSize); 
+            _cellWorldSize = Mathf.Max(0.1f, cellWorldSize);
         }
         #endregion 建構式
 
         #region 公開方式
+        /// <summary>
+        /// 格子轉世界座標
+        /// </summary>
+        /// <param name="coord">格子座標</param>
+        /// <returns></returns>
+        public Vector3 ToWorld(CellCoord coord)
+        {
+            return _origin + new Vector3(coord.X * _cellWorldSize, coord.Y * _cellWorldSize, 0);
+        }
+
+        /// <summary>
+        /// 世界座標轉格子
+        /// </summary>
+        /// <param name="worldPos">世界座標</param>
+        /// <returns></returns>
+        public CellCoord ToCell(Vector3 worldPos)
+        {
+            int x = (int)((worldPos - _origin).x / _cellWorldSize);
+            int y = (int)((worldPos - _origin).y / _cellWorldSize);
+            return new CellCoord(x, y);
+        }
         #endregion 公開方式
     }
 
