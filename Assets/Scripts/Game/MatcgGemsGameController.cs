@@ -26,6 +26,7 @@ namespace MatchGems.Game
             CreateBoard();
             CreateMapper();
             _boardView.Build(_boardModel, _gridMapper);
+            ConfigureInput();
         }
         #endregion 生命週期
 
@@ -59,7 +60,7 @@ namespace MatchGems.Game
 
         public void ConfigureInput()
         {
-            _boardInput.Configure(_gridMapper);
+            _boardInput.Configure(_gridMapper);//CellSize先走預設
         }
         # endregion 私有方法
     }
